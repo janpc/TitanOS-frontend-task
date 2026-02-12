@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest",
+    "test:e2e": "cypress run",
+    "cypress:open": "cypress open",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -28,6 +30,7 @@
     "@types/react-dom": "^19.2.3",
     "@types/react-test-renderer": "^19.1.0",
     "@vitejs/plugin-react": "^5.1.1",
+    "cypress": "^15.10.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
