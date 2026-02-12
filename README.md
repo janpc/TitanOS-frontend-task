@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# TitanOS Frontend Task - Movie List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A movie list application built with React, Redux Toolkit, and Vite.
 
-Currently, two official plugins are available:
+## 🛠 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/)
+- **Styling**: Vanilla CSS (TV-optimized design system)
+- **Testing**:
+  - Unit/Integration: [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+  - E2E: [Cypress](https://www.cypress.io/)
 
-## React Compiler
+## 🏃‍♂️ Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- [Node.js](https://nodejs.org/) (v20.19+ or v22.12+)
+- [npm](https://www.npmjs.com/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+# Clone the repository and install dependencies
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Running Locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+# Start the development server
+npm run dev
 ```
+
+The application will be available at `http://localhost:5173` (or the next available port).
+
+## 🧪 Testing
+
+### Unit and Integration Tests
+
+We use Vitest for fast, reliable unit testing.
+
+```bash
+# Run all vitest tests
+npm run test
+```
+
+### E2E Tests
+
+We use Cypress to verify the complete user flow, including keyboard navigation and scrolling behavior.
+
+```bash
+# Run E2E tests in headless mode
+npm run test:e2e
+
+# Open Cypress UI for interactive testing
+npm run cypress:open
+```
+
+## 🏗 Project Structure
+
+- `src/features/movies`: Core movie list components, styles, and Redux slice.
+- `src/api`: API client and data fetching logic.
+- `cypress/e2e`: End-to-end integration tests.
+- `src/store`: Redux store configuration and custom hooks.
+
+---
+Developed as part of the TitanOS Frontend Technical Task.
