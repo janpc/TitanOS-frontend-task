@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useAppSelector } from '../../store/hooks';
+import MovieListItem from './MovieListItem';
 import './MovieList.css';
 
 const MovieList: React.FC = () => {
@@ -56,24 +57,11 @@ const MovieList: React.FC = () => {
       <h2 className="movie-list-title">Recommended Movies</h2>
       <div className="movie-list-scroll" ref={containerRef}>
         {movies?.map((movie) => (
-          <div 
+          <MovieListItem 
             key={movie.id} 
-            className="movie-card" 
-            tabIndex={0}
-            role="button"
-            aria-label={movie.title}
-            onKeyDown={handleKeyDown}
-          >
-            <img
-              className="movie-poster"
-              src={movie.images.artwork_portrait}
-              alt={movie.title}
-              loading="lazy"
-            />
-            <div className="movie-info">
-              <p className="movie-title">{movie.title}</p>
-            </div>
-          </div>
+            movie={movie} 
+            onKeyDown={handleKeyDown} 
+          />
         ))}
       </div>
     </div>

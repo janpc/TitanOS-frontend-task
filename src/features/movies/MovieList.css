@@ -1,6 +1,7 @@
 .movie-list-container {
-  padding: 40px 0;
-  background-color: #0f0f0f;
+  padding: 40px 0 20px;
+
+
   min-height: 400px;
   max-width: 100vw;
   overflow: hidden;
@@ -18,8 +19,8 @@
 .movie-list-scroll {
   display: flex;
   overflow-x: auto;
-  gap: 20px;
-  padding: 20px 60px;
+  gap: 12px;
+  padding: 20px 60px 40px;
   scroll-padding-left: 60px;
   scroll-behavior: smooth;
   scrollbar-width: none; /* Hide scrollbar for TV */
@@ -30,10 +31,11 @@
 }
 
 .movie-card {
-  flex: 0 0 200px;
-  background-color: #1a1a1a;
   border-radius: 12px;
-  overflow: hidden;
+
+  flex: 0 0 200px;
+
+  border-radius: 10px;
   transition: transform 0.3s cubic-bezier(0.2, 0, 0.4, 1), box-shadow 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -42,7 +44,7 @@
 
 .movie-card:hover, .movie-card:focus {
   transform: scale(1.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgb(0, 0, 0);
   border-color: #ffffff;
   z-index: 10;
   outline: none;
@@ -53,17 +55,17 @@
   aspect-ratio: 2 / 3;
   object-fit: cover;
   display: block;
+  border-radius: 10px;
 }
 
 .movie-info {
-  padding: 12px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  padding: 0;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: -1.5rem;
+  left: 0.5rem;
   opacity: 0;
   transition: opacity 0.3s ease;
+  overflow: visible;
 }
 
 .movie-card:hover .movie-info, .movie-card:focus .movie-info {
