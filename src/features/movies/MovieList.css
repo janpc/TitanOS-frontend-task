@@ -81,3 +81,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.movie-poster-skeleton {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  animation: skeleton-pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}

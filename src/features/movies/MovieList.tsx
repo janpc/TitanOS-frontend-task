@@ -19,7 +19,12 @@ const MovieList: React.FC = () => {
   if (status === 'loading') {
     return (
       <div className="movie-list-container">
-        <h2 className="movie-list-title">Recommended Movies: loading...</h2>
+        <h2 className="movie-list-title">Recommended Movies</h2>
+        <div className="movie-list-scroll">
+          {[...Array(6)].map((_, i) => (
+            <MovieListItem key={`skeleton-${i}`} loading />
+          ))}
+        </div>
       </div>
     );
   }

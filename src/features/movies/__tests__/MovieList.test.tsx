@@ -12,7 +12,7 @@ describe('MovieList Component', () => {
   });
 
   it('should render loading state', () => {
-    renderWithProviders(<MovieList />, {
+    const { container } = renderWithProviders(<MovieList />, {
       preloadedState: {
         movies: {
           movies: [],
@@ -23,7 +23,9 @@ describe('MovieList Component', () => {
       },
     });
 
-    expect(screen.getByText(/loading.../i)).toBeInTheDocument();
+    expect(screen.getByText('Recommended Movies')).toBeInTheDocument();
+    const skeletons = container.querySelectorAll('.movie-poster-skeleton');
+    expect(skeletons).toHaveLength(6);
   });
 
   it('should render error state', () => {
