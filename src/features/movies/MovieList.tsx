@@ -6,6 +6,7 @@ import './MovieList.css';
 const MovieList: React.FC = () => {
   const { movies, status, error } = useAppSelector((state) => state.movies);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isThrottledRef = useRef(false);
 
   useEffect(() => {
     if (status === 'succeeded' && containerRef.current) {
@@ -37,23 +38,41 @@ const MovieList: React.FC = () => {
     );
   }
 
+
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+
     const target = e.target as HTMLElement;
     
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      const next = target.nextElementSibling as HTMLElement;
-      if (next) {
-        next.focus();
-        next.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    const performMove = () => {
+      const nextElement = (e.key === 'ArrowRight' 
+        ? target.nextElementSibling 
+        : target.previousElementSibling) as HTMLElement;
+
+      if (nextElement) {
+        e.preventDefault();
+        nextElement.focus({ preventScroll: true });
+        nextElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start',
+        });
       }
-    } else if (e.key === 'ArrowLeft') {
+    };
+
+    if (isThrottledRef.current) {
       e.preventDefault();
-      const prev = target.previousElementSibling as HTMLElement;
-      if (prev) {
-        prev.focus();
-        prev.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      }
+      return;
+    }
+
+    performMove();
+
+    if (e.repeat) {
+      isThrottledRef.current = true;
+      setTimeout(() => {
+        isThrottledRef.current = false;
+      }, 400)
     }
   };
 

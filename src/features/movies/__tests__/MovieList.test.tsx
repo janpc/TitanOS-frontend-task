@@ -88,6 +88,7 @@ describe('MovieList Component', () => {
   });
 
   it('should handle arrow key navigation', () => {
+    vi.useFakeTimers();
     const mockMovies = [
       { id: 1, title: 'Movie 1', images: { artwork_portrait: 'url1', artwork_landscape: 'url1' } },
       { id: 2, title: 'Movie 2', images: { artwork_portrait: 'url2', artwork_landscape: 'url2' } },
@@ -120,6 +121,9 @@ describe('MovieList Component', () => {
       inline: 'start',
     });
 
+    // Advance time to clear the throttle
+    vi.advanceTimersByTime(201);
+
     // Navigate Left
     fireEvent.keyDown(secondCard, { key: 'ArrowLeft' });
     expect(document.activeElement).toBe(firstCard);
@@ -128,5 +132,53 @@ describe('MovieList Component', () => {
       block: 'nearest',
       inline: 'start',
     });
+
+    vi.useRealTimers();
+  });
+
+  it('should handle navigation behavior: smooth for taps, auto for repeats, and throttled for both', () => {
+    vi.useFakeTimers();
+    const mockMovies = [
+      { id: 1, title: 'Movie 1', images: { artwork_portrait: 'url1', artwork_landscape: 'url1' } },
+      { id: 2, title: 'Movie 2', images: { artwork_portrait: 'url2', artwork_landscape: 'url2' } },
+      { id: 3, title: 'Movie 3', images: { artwork_portrait: 'url3', artwork_landscape: 'url3' } },
+    ];
+
+    renderWithProviders(<MovieList />, {
+      preloadedState: {
+        movies: {
+          movies: mockMovies,
+          selectedIndex: 0,
+          status: 'succeeded',
+          error: null,
+        },
+      },
+    });
+
+    const cards = screen.getAllByRole('button');
+    const firstCard = cards[0];
+    const secondCard = cards[1];
+    const thirdCard = cards[2];
+
+    firstCard.focus();
+
+    // 1. First tap - smooth
+    fireEvent.keyDown(firstCard, { key: 'ArrowRight', repeat: false });
+    expect(secondCard.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'smooth' }));
+    expect(document.activeElement).toBe(secondCard);
+
+    // 2. Immediate repeat - throttled (ignored)
+    vi.mocked(secondCard.scrollIntoView).mockClear();
+    fireEvent.keyDown(secondCard, { key: 'ArrowRight', repeat: true });
+    expect(thirdCard.scrollIntoView).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(secondCard);
+
+    // 3. Repeat after cooldown - auto (snappy but controlled)
+    vi.advanceTimersByTime(201);
+    fireEvent.keyDown(secondCard, { key: 'ArrowRight', repeat: true });
+    expect(thirdCard.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'auto' }));
+    expect(document.activeElement).toBe(thirdCard);
+
+    vi.useRealTimers();
   });
 });

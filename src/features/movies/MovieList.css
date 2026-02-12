@@ -22,7 +22,6 @@
   gap: 12px;
   padding: 20px 60px 40px;
   scroll-padding-left: 60px;
-  scroll-behavior: smooth;
   scrollbar-width: none; /* Hide scrollbar for TV */
 }
 
