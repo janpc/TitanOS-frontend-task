@@ -25,7 +25,7 @@ describe('moviesSlice', () => {
 
   it('should handle fetchMoviesAsync.fulfilled', async () => {
     const mockMovies = [{ id: 1, title: 'Test Movie', images: { artwork_portrait: 'url' } }];
-    (fetchMovies as Mock).mockResolvedValue({ data: mockMovies });
+    (fetchMovies as Mock).mockResolvedValue({ collection: mockMovies });
 
     const store = configureStore({ reducer: { movies: moviesReducer } });
     await store.dispatch(fetchMoviesAsync());

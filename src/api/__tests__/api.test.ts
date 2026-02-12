@@ -8,13 +8,20 @@ describe('fetchMovies API', () => {
   it('should fetch movies successfully', async () => {
     const mockData = {
       data: {
-        data: [
+        collection: [
           {
             id: 1,
             title: 'Test Movie',
-            images: { artwork_portrait: 'url' },
+            images: { artwork_portrait: 'url', artwork_landscape: 'url' },
           },
         ],
+        pagination: {
+          current_page: 1,
+          total_count: 1,
+          total_pages: 1,
+          next_page: null,
+          prev_page: null,
+        },
       },
     };
 
