@@ -4,11 +4,10 @@ import clsx from 'clsx';
 
 interface MovieListItemProps {
   movie?: Movie;
-  onKeyDown?: (e: React.KeyboardEvent) => void;
   loading?: boolean;
 }
 
-const MovieListItem: React.FC<MovieListItemProps> = ({ movie, onKeyDown, loading }) => {
+const MovieListItem: React.FC<MovieListItemProps> = ({ movie, loading }) => {
   const [isImageReady, setIsImageReady] = useState(false);
 
   if (loading) {
@@ -19,7 +18,7 @@ const MovieListItem: React.FC<MovieListItemProps> = ({ movie, onKeyDown, loading
     );
   }
 
-  if (!movie || !onKeyDown) return null;
+  if (!movie) return null;
 
   return (
     <div 
@@ -27,7 +26,6 @@ const MovieListItem: React.FC<MovieListItemProps> = ({ movie, onKeyDown, loading
       tabIndex={0}
       role="button"
       aria-label={movie.title}
-      onKeyDown={onKeyDown}
     >
       <img
         className={clsx("movie-poster", { "movie-poster-skeleton": !isImageReady })}

@@ -60,12 +60,15 @@ const MovieList: React.FC = () => {
   return (
     <div className="movie-list-container">
       <h2 className="movie-list-title">Recommended Movies</h2>
-      <div className="movie-list-scroll" ref={containerRef}>
+      <div 
+        className="movie-list-scroll" 
+        ref={containerRef}
+        onKeyDown={handleKeyDown}
+      >
         {movies?.map((movie) => (
           <MovieListItem 
             key={movie.id} 
             movie={movie} 
-            onKeyDown={handleKeyDown} 
           />
         ))}
       </div>
